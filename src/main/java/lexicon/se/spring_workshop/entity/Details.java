@@ -1,4 +1,4 @@
-package lexicon.se.spring_workshop.models;
+package lexicon.se.spring_workshop.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;

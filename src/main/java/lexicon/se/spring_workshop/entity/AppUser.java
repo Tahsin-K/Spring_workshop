@@ -1,4 +1,4 @@
-package lexicon.se.spring_workshop.models;
+package lexicon.se.spring_workshop.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +18,9 @@ public class AppUser {
     @Column(nullable = false,length = 100)
     private String Password;
     private LocalDate regdate;
+
+    @OneToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "Details_Id")
     private Details details;
 
     public AppUser(){

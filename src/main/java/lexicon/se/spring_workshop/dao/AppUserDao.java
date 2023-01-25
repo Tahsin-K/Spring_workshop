@@ -1,8 +1,7 @@
 package lexicon.se.spring_workshop.dao;
 
-import lexicon.se.spring_workshop.models.AppUser;
+import lexicon.se.spring_workshop.entity.AppUser;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public interface AppUserDao {
