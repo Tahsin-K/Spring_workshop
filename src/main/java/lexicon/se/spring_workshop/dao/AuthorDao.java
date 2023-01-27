@@ -1,4 +1,13 @@
 package lexicon.se.spring_workshop.dao;
 
-public interface AuthorDao {
+import lexicon.se.spring_workshop.entity.AppUser;
+import lexicon.se.spring_workshop.entity.Author;
+
+import java.util.Optional;
+
+public interface AuthorDao extends BaseDao <Author>{
+
+    Optional<Author> findbyId (int Id);
+
+    void delete (int Id);
 }

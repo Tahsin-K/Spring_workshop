@@ -18,16 +18,12 @@ public class BookLoan {
     private LocalDate loanDate;
     private LocalDate dueDate;
     private boolean returned;
-    private AppUser borrower;
-    private Book book;
 
-    public BookLoan(int loanId, LocalDate loanDate, LocalDate dueDate, boolean returned, AppUser borrower, Book book) {
+    public BookLoan(int loanId, LocalDate loanDate, LocalDate dueDate, boolean returned) {
         this.loanId = loanId;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.returned = returned;
-        this.borrower = borrower;
-        this.book = book;
     }
     public  BookLoan (){
 
@@ -65,32 +61,17 @@ public class BookLoan {
         this.returned = returned;
     }
 
-    public AppUser getBorrower() {
-        return borrower;
-    }
-
-    public void setBorrower(AppUser borrower) {
-        this.borrower = borrower;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookLoan bookLoan = (BookLoan) o;
-        return loanId == bookLoan.loanId && returned == bookLoan.returned && Objects.equals(loanDate, bookLoan.loanDate) && Objects.equals(dueDate, bookLoan.dueDate) && Objects.equals(borrower, bookLoan.borrower) && Objects.equals(book, bookLoan.book);
+        return loanId == bookLoan.loanId && returned == bookLoan.returned && Objects.equals(loanDate, bookLoan.loanDate) && Objects.equals(dueDate, bookLoan.dueDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(loanId, loanDate, dueDate, returned, borrower, book);
+        return Objects.hash(loanId, loanDate, dueDate, returned);
     }
 }

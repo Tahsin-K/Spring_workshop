@@ -4,13 +4,11 @@ import lexicon.se.spring_workshop.entity.AppUser;
 
 import java.util.Optional;
 
-public interface AppUserDao {
+public interface AppUserDao extends BaseDao {
 
-    AppUser persists (AppUser appUser);
+
     Optional<AppUser> findbyId (int Id);
-    Optional<AppUser> findAll();
-    Optional<AppUser> create();
-    AppUser update (AppUser appUser);
+
     void delete (int Id);
 
 
