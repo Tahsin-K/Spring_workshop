@@ -1,8 +1,10 @@
 package lexicon.se.spring_workshop.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -16,18 +18,37 @@ public class Author {
     @Column(nullable = false, length = 100)
     private String lastName;
 
-    // add many to many
-     //private List<Book> writtenBook;
+    @ManyToMany(cascade = {CascadeType.ALL})
+     private Set<Book> writtenBook;
 
-    public Author(int authorId, String firstName, String lastName) {
-        this.authorId = authorId;
+    public Author(String firstName, String lastName, Set<Book> writtenBook) {
+        this();
+        this.writtenBook = writtenBook;
+    }
+
+    public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        //this.writtenBook = writtenBook;
-
     }
 
     public Author () {
+
+    }
+
+    public void addBook(Book book) {
+        if (book == null) throw new IllegalArgumentException("Book was null");
+        if(writtenBook == null) writtenBook = new HashSet<>();
+        writtenBook.add(book);
+        book.getAuthorList().add(this);
+    }
+
+    public void removeBook(Book book){
+        if (book == null) throw new IllegalArgumentException("Book was null");
+        if(writtenBook != null){
+            book.getAuthorList().remove(this);
+            writtenBook.remove(book);
+        }
+
 
     }
 
@@ -55,16 +76,34 @@ public class Author {
         this.lastName = lastName;
     }
 
+    public Set<Book> getWrittenBook() {
+        return writtenBook;
+    }
+
+    public void setWrittenBook(Set<Book> writtenBook) {
+        this.writtenBook = writtenBook;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Author author = (Author) o;
-        return authorId == author.authorId && Objects.equals(firstName, author.firstName) && Objects.equals(lastName, author.lastName);
+        return authorId == author.authorId && Objects.equals(firstName, author.firstName) && Objects.equals(lastName, author.lastName) && Objects.equals(writtenBook, author.writtenBook);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, firstName, lastName);
+        return Objects.hash(authorId, firstName, lastName, writtenBook);
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorId=" + authorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", writtenBook=" + writtenBook +
+                '}';
     }
 }

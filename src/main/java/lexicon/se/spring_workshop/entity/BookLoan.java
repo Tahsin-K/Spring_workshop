@@ -1,9 +1,6 @@
 package lexicon.se.spring_workshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -19,15 +16,29 @@ public class BookLoan {
     private LocalDate dueDate;
     private boolean returned;
 
+   @ManyToOne(cascade = {CascadeType.ALL})
+   @JoinColumn(name = "appuser_id")
+    private AppUser borrower;
+
+   @ManyToOne(cascade = {CascadeType.ALL})
+   @JoinColumn(name = "book_id")
+    private Book book;
+
+
+
     public BookLoan(int loanId, LocalDate loanDate, LocalDate dueDate, boolean returned) {
         this.loanId = loanId;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.returned = returned;
     }
+
+
     public  BookLoan (){
 
     }
+
+
 
     public int getLoanId() {
         return loanId;
@@ -61,6 +72,32 @@ public class BookLoan {
         this.returned = returned;
     }
 
+    public AppUser getBorrower() {
+        return borrower;
+    }
+
+    public void setBorrower(AppUser borrower) {
+        this.borrower = borrower;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+
+    }
+
+    @Override
+    public String toString() {
+        return "BookLoan{" +
+                "loanId=" + loanId +
+                ", loanDate=" + loanDate +
+                ", dueDate=" + dueDate +
+                ", returned=" + returned +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

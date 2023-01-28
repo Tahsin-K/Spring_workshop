@@ -2,6 +2,7 @@ package lexicon.se.spring_workshop.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -23,6 +24,9 @@ public class AppUser {
     @JoinColumn(name = "Details_Id")
     private Details details;
 
+    @OneToMany(mappedBy = "borrower", orphanRemoval = true )
+    private List<BookLoan> loan;
+
     public AppUser(){
 
     }
@@ -33,6 +37,7 @@ public class AppUser {
         this.regdate = regdate;
         this.details = details;
     }
+
 
     public int getAppUserID() {
         return appUserId;
@@ -71,6 +76,14 @@ public class AppUser {
         this.details = details;
     }
 
+    public List<BookLoan> getLoan() {
+        return loan;
+    }
+
+    public void setLoan(List<BookLoan> loan) {
+        this.loan = loan;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,5 +95,16 @@ public class AppUser {
     @Override
     public int hashCode() {
         return Objects.hash(appUserId, UserName, Password, regdate, details);
+    }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "appUserId=" + appUserId +
+                ", UserName='" + UserName + '\'' +
+                ", Password='" + Password + '\'' +
+                ", regdate=" + regdate +
+                ", details=" + details +
+                '}';
     }
 }

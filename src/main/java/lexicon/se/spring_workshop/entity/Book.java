@@ -1,7 +1,10 @@
 package lexicon.se.spring_workshop.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -17,6 +20,10 @@ public class Book {
     private String title;
     private int maxLoanDays;
 
+
+    @ManyToMany(mappedBy = "writtenBook" )
+    private Set<Author> authorList;
+
     public Book(int bookId, String isbn, String title, int maxLoanDays) {
         this.bookId = bookId;
         this.isbn = isbn;
@@ -25,6 +32,17 @@ public class Book {
     }
 
     public Book (){
+    }
+
+    public void addAuthor(Author author){
+        if (author == null) throw new IllegalArgumentException("Author is null");
+        if(authorList == null) authorList = new HashSet<>();
+        authorList.add(author);
+        author.addBook(this);
+    }
+
+    public void removeAuthor(Author author){
+        if(author == null) throw new IllegalArgumentException("Author was null");
     }
 
     public int getBookId() {
@@ -57,6 +75,25 @@ public class Book {
 
     public void setMaxLoanDays(int maxLoanDays) {
         this.maxLoanDays = maxLoanDays;
+    }
+
+
+    public Set<Author> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(Set<Author> authorList) {
+        this.authorList = authorList;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", isbn='" + isbn + '\'' +
+                ", title='" + title + '\'' +
+                ", maxLoanDays=" + maxLoanDays +
+                '}';
     }
 
     @Override
