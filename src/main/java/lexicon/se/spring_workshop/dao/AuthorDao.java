@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AuthorDao extends BaseDao <Author>{
 
-    Optional<Author> findbyId (int Id);
+   Author findbyId (int Id);
 
     void delete (int Id);
 }

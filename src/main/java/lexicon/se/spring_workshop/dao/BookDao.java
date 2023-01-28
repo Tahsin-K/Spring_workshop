@@ -5,9 +5,9 @@ import lexicon.se.spring_workshop.entity.Book;
 
 import java.util.Optional;
 
-public interface BookDao extends BaseDao {
+public interface BookDao extends BaseDao<Book> {
 
-    Optional<Book> findbyId (int Id);
+    Book findbyId (int Id);
 
     void delete (int Id);
 }
